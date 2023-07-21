@@ -3,8 +3,8 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { QRCodeModule } from 'angularx-qrcode';
 import QRCode from 'qrcode-svg';
 import { TinyUrlService } from 'src/app/Services/tiny-url.service';
-import { BitlyShortenResponse } from 'src/app/Models/bitly-shorten-response';
 import { retry } from 'rxjs';
+import { TinyURLapiResponse } from 'src/app/Models/tiny-urlapi-response';
 
 
 
@@ -36,7 +36,6 @@ export class TinyURLGenerationComponent implements OnInit {
   refreshPage(): void {
     this.hideControls();
     this.showURLgenerationControls();
-    this.longUrl="";
     this.disableUrl= false;
     this.tinyUrl = "";
     this.alias="";
@@ -78,7 +77,7 @@ export class TinyURLGenerationComponent implements OnInit {
       this.disableUrl = true;
       this.service.getTinyUrl(this.longUrl, this.alias)
         .subscribe(
-          (response: BitlyShortenResponse) => {
+          (response: TinyURLapiResponse) => {
             //console.log(response.shortUrl);
             if(response.statusCode==="forbidden"){
               this.aliasNA= true; 

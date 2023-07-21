@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpEvent, HttpEventType, HttpHeaders, H
 import { Injectable } from '@angular/core';
 import { Observable, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BitlyShortenResponse } from '../Models/bitly-shorten-response';
+import { TinyURLapiResponse } from '../Models/tiny-urlapi-response';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,13 @@ export class TinyUrlService {
 
     constructor(private http: HttpClient) { }
 
-    getTinyUrl(longUrl: string, alias: string): Observable<BitlyShortenResponse>{
+    getTinyUrl(longUrl: string, alias: string): Observable<TinyURLapiResponse>{
       const params = new HttpParams()
       .set('longUrl', longUrl)
-      .set('alias', alias);
+      .set('alias', alias)
+      .set('userId',1);
 
       console.log(longUrl);
-      return this.http.post<BitlyShortenResponse>(this.baseApiUrl + `api/Home/getTinyUrl`, null, { params });
+      return this.http.post<TinyURLapiResponse>(this.baseApiUrl + `api/Home/getTinyUrl`, null, { params });
       }
 }
