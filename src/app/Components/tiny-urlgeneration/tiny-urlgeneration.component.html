@@ -1,0 +1,93 @@
+<div class="container-fluid h-100">
+  <div class="row h-100">
+    <div class="col-lg-4 bg-white rounded-start p-4">
+      <div class="container mt-5">
+
+        <div class="mb-3">
+          <label for="urlInput" class="form-label"><i class="bi bi-link-45deg me-4"></i>Your Long URL</label>
+          <div class="input-group">
+            <input id="urlInput" #urlInput [(ngModel)]="longUrl" [disabled]="disableUrl" type="url" pattern="https?://.+" class="form-control" placeholder="Enter long link here" />
+            
+          </div>
+          <div *ngIf="invalidUrl" class="text-danger">Invalid URL</div>
+        </div>
+        <div class="mb-3">
+          <label for="tinyUrlInput" class="form-label"><i class="bi bi-magic me-4"></i>TinyURL</label>
+          <div class="input-group">
+            <input id="tinyUrlInput" [disabled]="disableTinyUrl" type="text" [(ngModel)]="tinyUrl" type="url" pattern="^(https?://)?(www\.)?.+" class="form-control" placeholder="tinyurl.com" />
+            <input *ngIf="showAlias" id="alias" type="text" [(ngModel)]="alias" placeholder="Enter Alias" class="form-control ms-2" />
+          </div>
+          <div *ngIf="aliasNA" class="text-danger"> Alias not available </div>
+        </div>
+        <div class="mb-3">
+          <button *ngIf="shortenbtn" class="btn btn-primary w-100" (click)="getTinyUrl()">Shorten URL</button>
+        </div>
+        <div id="qr-controls">
+          
+          <div class="mb-3 w-100">
+            <button class="btn btn-primary me-2" style="background-color: white; color: blue;" (click)="openUrlInNewTab()">
+              <i class="bi bi-box-arrow-up-right"></i></button>
+            
+              <!-- Drop Down for QR Code to show downloading options-->
+              <div class="container ddDiv">
+                <div class="row row-postion">
+                  <div class="col">
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle dd-bg-color" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        &nbsp;<i class="bi bi-qr-code"></i> &nbsp;QR Code &nbsp;
+                      </button>
+                      <div class="dropdown-menu ddWidth" aria-labelledby="dropdownMenuButton">
+                        <div class="row">
+                          <div class="container contanderWidth">
+                            
+                              <div class="col-12">
+                                <div id="qrcodeContainer" #qrcodeContainer class="text-center">
+                                  <qrcode id="qrcodeElement" #qrcodeElement [allowEmptyString]="true" [qrdata]="tinyUrl"></qrcode>
+                                </div>
+                              </div>
+                            
+                          </div>
+                          <div class="ddElements">
+                            <a style="padding: 0px;" class="dropdown-item" href="#"><button class="btn btn-primary btn-dd" (click)="downloadQRCode('png')">PNG</button></a>
+                            <a style="padding: 0px;" class="dropdown-item" href="#"><button class="btn btn-primary btn-dd" (click)="downloadQRCode('svg')">SVG</button></a>
+                            <a style="padding: 0px;" class="dropdown-item" href="#"><button class="btn btn-primary btn-dd" (click)="downloadQRCode('png1200')">PNG 1200</button></a>
+                        </div>
+                    </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <button class="btn btn-primary me-2">
+              &nbsp;<i class="bi bi-share me-2"></i>&nbsp;Share&nbsp;</button>
+            <button class="btn btn-primary me-2" title="Copy to Clipboard" (click)="copyToClipboard()">&nbsp;
+              <i class="bi bi-clipboard me-2"></i> &nbsp;Copy&nbsp;&nbsp;</button>
+          </div>
+
+          <div class="mb-3">
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-primary w-50 me-2 url-clr" (click)="getTinyUrl()">My Urls</button>
+              <button class="btn btn-primary w-50 me-2  shrtBtn-clr" (click)="refreshPage()">Shorten another</button>
+            </div>
+          </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
