@@ -23,6 +23,7 @@ export class TinyURLGenerationComponent implements OnInit {
   aliasNA= false;
   showAlias = true;
   shortenbtn= true;
+  userDatatPopUp= false;
  
   longUrl: string = '';
   alias: string ='';
@@ -30,8 +31,20 @@ export class TinyURLGenerationComponent implements OnInit {
   qrCodeValue: string = '';
   qrcodeElement!: ElementRef;
 
+  urls = [
+    { longUrl: 'https://www.example.com/url1' },
+    { longUrl: 'https://www.example.com/url2' },
+    { longUrl: 'https://www.example.com/url3' }
+  ];
+
   constructor(private service: TinyUrlService ,private elementRef: ElementRef) {
     
+  }
+  closePopup(){
+    this.userDatatPopUp = false;
+  }
+  showMyUrls(){
+    this.userDatatPopUp = true;
   }
   refreshPage(): void {
     this.hideControls();

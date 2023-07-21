@@ -67,7 +67,7 @@
 
           <div class="mb-3">
             <div class="d-flex justify-content-between">
-              <button class="btn btn-primary w-50 me-2 url-clr" (click)="getTinyUrl()">My Urls</button>
+              <button class="btn btn-primary w-50 me-2 url-clr" (click)="showMyUrls()">My Urls</button>
               <button class="btn btn-primary w-50 me-2  shrtBtn-clr" (click)="refreshPage()">Shorten another</button>
             </div>
           </div>
@@ -78,8 +78,33 @@
     
   </div>
 </div>
+<button class="btn btn-primary w-50 me-2 url-clr" (click)="showMyUrls()">My Urls</button>
 
-
+<!-- my-urls-popup.component.html -->
+<div id="popupContainer" *ngIf="userDatatPopUp">
+  <div class="popup-content">
+    <button class="close-button" (click)="closePopup()">
+      <i class="bi bi-x"></i>
+    </button>
+    <div class="popUp-head">
+      <h1> Your recent TinyURLs </h1>
+    </div>
+    <table class="myurls">
+      <tr *ngFor="let url of urls">
+        <td>
+          <div class="row-div">
+            <div class="upper-div">{{ url.longUrl }}</div>
+            <div class="buttons-div">
+              <!-- Add your buttons here -->
+              <button>Button 1</button>
+              <button>Button 2</button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
 
 
 

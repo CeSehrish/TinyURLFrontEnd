@@ -1,5 +1,5 @@
 export class TinyURLapiResponse {
-    userid: number=0;
+    id: string= "0";
     statusCode: string="";
     shortUrl!: string;
     destination: string="";

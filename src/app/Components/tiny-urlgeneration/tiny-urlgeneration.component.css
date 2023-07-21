@@ -72,3 +72,54 @@
     right: -260px;
     top: -38px;
   }
+/* my-urls-popup.component.css */
+
+#popupContainer {
+  position: fixed;
+  top: 8%;
+  right: 0;
+  width: 45%; /* One-third of the screen width */
+  height: 92%;
+  /*background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: flex-start; /* Align to the extreme left */
+  align-items: center;
+}
+
+.popup-content {
+  height:100%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button i {
+  font-size: 24px;
+}
+
+.row-div {
+  margin-bottom: 10px;
+  background-color: #f8f9fa; /* Light-colored margin background */
+}
+.myurls{
+  left: 3%;
+  top: 10%;
+  position: relative;
+  width: 90%;
+}
+.popUp-head{
+  top: 5%;
+  position: relative;
+}
