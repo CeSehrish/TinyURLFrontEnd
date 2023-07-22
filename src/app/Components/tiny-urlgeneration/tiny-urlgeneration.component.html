@@ -6,7 +6,7 @@
         <div class="mb-3">
           <label for="urlInput" class="form-label"><i class="bi bi-link-45deg me-4"></i>Your Long URL</label>
           <div class="input-group">
-            <input id="urlInput" #urlInput [(ngModel)]="longUrl" [disabled]="disableUrl" type="url" pattern="https?://.+" class="form-control" placeholder="Enter long link here" />
+            <input id="urlInput" #urlInput [(ngModel)]="longUrl" [disabled]="disableUrl" type="url" pattern="https?://.+"  class="form-control" placeholder="Enter long link here" />
             
           </div>
           <div *ngIf="invalidUrl" class="text-danger">Invalid URL</div>
@@ -17,7 +17,7 @@
             <input id="tinyUrlInput" [disabled]="disableTinyUrl" type="text" [(ngModel)]="tinyUrl" type="url" pattern="^(https?://)?(www\.)?.+" class="form-control" placeholder="tinyurl.com" />
             <input *ngIf="showAlias" id="alias" type="text" [(ngModel)]="alias" placeholder="Enter Alias" class="form-control ms-2" />
           </div>
-          <div *ngIf="aliasNA" class="text-danger"> Alias not available </div>
+          <div *ngIf="aliasNA" class="text-danger NA-alias"> Alias not available </div>
         </div>
         <div class="mb-3">
           <button *ngIf="shortenbtn" class="btn btn-primary w-100" (click)="getTinyUrl()">Shorten URL</button>
@@ -67,8 +67,8 @@
 
           <div class="mb-3">
             <div class="d-flex justify-content-between">
-              <button class="btn btn-primary w-50 me-2 url-clr" (click)="showMyUrls()">My Urls</button>
-              <button class="btn btn-primary w-50 me-2  shrtBtn-clr" (click)="refreshPage()">Shorten another</button>
+              <button class="btn btn-primary w-50 me-2 url-clr" title="See all urls" (click)="showMyUrls()">My Urls</button>
+              <button class="btn btn-primary w-50 me-2  shrtBtn-clr" title="Start Over" (click)="refreshPage()">Shorten another</button>
             </div>
           </div>
       </div>
@@ -78,7 +78,6 @@
     
   </div>
 </div>
-<button class="btn btn-primary w-50 me-2 url-clr" (click)="showMyUrls()">My Urls</button>
 
 <!-- my-urls-popup.component.html -->
 <div id="popupContainer" *ngIf="userDatatPopUp">
@@ -90,14 +89,22 @@
       <h1> Your recent TinyURLs </h1>
     </div>
     <table class="myurls">
-      <tr *ngFor="let url of urls">
+      <tr *ngFor="let url of myLinks" class="mt-3 mb-3">
         <td>
-          <div class="row-div">
-            <div class="upper-div">{{ url.longUrl }}</div>
-            <div class="buttons-div">
-              <!-- Add your buttons here -->
-              <button>Button 1</button>
-              <button>Button 2</button>
+          <div class="row-div mt-3"> <!-- Add mt-3 class for top margin -->
+            <div>
+              <h4> {{url.tinyUrl}}</h4>
+            </div>
+            <div class="upper-div pt-3"> <!-- Add pt-3 class for top padding -->
+              <p style="margin-left: 3%; margin-right: 3%; color: green;"> {{ url.longUrl }}</p>
+            </div>
+            <div class="buttons-div mt-3 pt-3"> <!-- Add mt-3 class for top margin and mb-3 class for bottom margin -->
+              <!-- Add your buttons here with Bootstrap classes -->
+              <button class="btn btn-primary me-2" style="position: relative; bottom: 15px; margin-right: 5px;">Rename</button>
+              <button class="btn btn-primary me-2" style="position: relative; bottom: 15px;margin-right: 5px">Edit</button>
+              <button class="btn btn-primary me-2" style="position: relative; bottom: 15px;margin-right: 5px"><i class="bi bi-qr-code"></i>QR Code</button>
+              <button class="btn btn-primary me-2" style="position: relative; bottom: 15px;margin-right: 5px"><i class="bi bi-share me-2"></i>Share</button>
+              <button class="btn btn-primary me-2" style="position: relative; bottom: 15px;margin-right: 5px"><i class="bi bi-clipboard me-2"></i>Copy</button>
             </div>
           </div>
         </td>
@@ -105,6 +112,9 @@
     </table>
   </div>
 </div>
+
+
+
 
 
 

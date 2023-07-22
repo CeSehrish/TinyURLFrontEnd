@@ -5,6 +5,7 @@ import QRCode from 'qrcode-svg';
 import { TinyUrlService } from 'src/app/Services/tiny-url.service';
 import { retry } from 'rxjs';
 import { TinyURLapiResponse } from 'src/app/Models/tiny-urlapi-response';
+import { UrlLink } from 'src/app/Models/url-link';
 
 
 
@@ -29,13 +30,10 @@ export class TinyURLGenerationComponent implements OnInit {
   alias: string ='';
   tinyUrl: string="";
   qrCodeValue: string = '';
+  myLinks: UrlLink[] = [];
   qrcodeElement!: ElementRef;
 
-  urls = [
-    { longUrl: 'https://www.example.com/url1' },
-    { longUrl: 'https://www.example.com/url2' },
-    { longUrl: 'https://www.example.com/url3' }
-  ];
+
 
   constructor(private service: TinyUrlService ,private elementRef: ElementRef) {
     
@@ -44,12 +42,15 @@ export class TinyURLGenerationComponent implements OnInit {
     this.userDatatPopUp = false;
   }
   showMyUrls(){
+    this.myLinks = [];
     this.userDatatPopUp = true;
+    this.getUserData();
   }
   refreshPage(): void {
     this.hideControls();
     this.showURLgenerationControls();
     this.disableUrl= false;
+    this.longUrl="";
     this.tinyUrl = "";
     this.alias="";
   }
@@ -100,6 +101,8 @@ export class TinyURLGenerationComponent implements OnInit {
             this.tinyUrl= response.shortUrl; 
             this.showQRControls();
             this.hideURLgenerationControls();
+            this.showMyUrls();
+            this.closePopup();
           },
           (error: any) => {
             console.log("Error: ", error);
@@ -128,6 +131,24 @@ export class TinyURLGenerationComponent implements OnInit {
       const urlInputElement = document.getElementById('urlInput') as HTMLInputElement;
       this.qrCodeValue = urlInputElement.value;
     }
+  }
+  getUserData(){
+    const userId: number =1;
+    this.service.getUserData(userId)
+    .subscribe({
+      next: (event) => {
+        for (let i = 0; i < event.length; i++) {
+          //const tinyUrl = event[i];
+          const link: UrlLink = new UrlLink();
+          link.id= event[i].id;
+          link.longUrl = event[i].longUrl;
+          link.tinyUrl = event[i].tinyUrl;
+          link.alias = event[i].alias;
+          this.myLinks.push(link); 
+        }
+      },
+      error: (err: HttpErrorResponse) => console.log(err)
+    });
   }
   downloadQRCode(format: string) {
       const qrcodeCanvas = this.qrcodeContainer.nativeElement.querySelector('canvas');
