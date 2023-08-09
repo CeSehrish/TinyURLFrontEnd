@@ -82,7 +82,7 @@ export class TinyURLGenerationComponent implements OnInit {
     }
   }
   getTinyUrl(): void {
-    if (!this.urlInput.nativeElement.validity.valid) {
+    if (!this.urlInput.nativeElement.validity.valid || this.urlInput.nativeElement.value.trim() === '') {
       this.invalidUrl = true;
     }
     else{
@@ -150,7 +150,8 @@ export class TinyURLGenerationComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.log(err)
     });
   }
-  downloadQRCode(format: string) {
+  downloadQRCode(format: string, event: Event) {
+    event.preventDefault();
       const qrcodeCanvas = this.qrcodeContainer.nativeElement.querySelector('canvas');
     
       if (!qrcodeCanvas) {
@@ -174,47 +175,7 @@ export class TinyURLGenerationComponent implements OnInit {
         link.href = qrcodeCanvas.toDataURL(`image/${format}`);
         link.download = `qrcode.${format}`;
         link.click();
-      }    
-
-    
-    /*
-    var qrcodeSVG = new QRCode({
-      content: "http://github.com/",
-      container: "svg-viewbox"
-    });
-    
-    const svgElement = qrcodeSVG.svg();
-   
-    
-
-    const qrcode = this.qrcodeContainer.nativeElement.querySelector('canvas');
-  
-    if (!qrcode) {
-      console.error('QR code canvas not found.');
-      return;
-    }
-    
-    const link = document.createElement('a');
-    let format = this.selectedFormat;
-  
-    if (format === 'png-1200') {
-      format = 'png'; // Convert to PNG format for PNG-1200
-      
-      qrcode.toBlob((blob: Blob) => {
-        const url = URL.createObjectURL(blob);
-        
-        console.log(url);
-        link.href = url;
-        link.download = `qrcode.${format}`;
-        link.click();
-        URL.revokeObjectURL(url);
-      }, 'image/png', 1.0);
-    } 
-    else {
-      link.href = qrcode.toDataURL(`image/${format}`);
-      link.download = `qrcode.${format}`;
-      link.click();
-    }  */
+      }       
   }
   
 }

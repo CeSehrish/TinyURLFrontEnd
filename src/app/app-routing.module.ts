@@ -4,7 +4,7 @@ import { TinyURLGenerationComponent } from './Components/tiny-urlgeneration/tiny
 
 const routes: Routes = [
   {
-    path:'',
+    path: 'tinyLinks',
     component:TinyURLGenerationComponent
   }
 ];
